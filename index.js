@@ -39,5 +39,9 @@ io.on("connection", (socket) => {
 
     socket.on("send_message", () => {
         io.emit("receive_message");
-    })
+    });
+
+    socket.on("add_contact", () => {
+        io.emit("added_contact");
+    });
 });

@@ -144,6 +144,26 @@ router.post('/add-contact', async(req,res) => {
 
 });
 
+router.get('/get-contact', async(req,res) => {
+
+    const { myId } = req.query;
+
+    try {
+
+       const user = await User.findById(myId).populate("contacts");
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        return res.json({ contacts: user.contacts });
+
+    } catch (err) {
+        console.error(err);
+    }
+
+});
+
 router.get('/get-user', async(req,res) => {
 
     const { id } = req.query;

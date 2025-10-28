@@ -20,19 +20,19 @@ const UserSchema = new mongoose.Schema({
     contacts: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            required: false
+            ref: "User"
         }
     ],
     subscribers: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            required: false
+            ref: "User"
         }
     ],
     subscribed: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            required: false
+            ref: "User"
         }
     ]
 }, {
