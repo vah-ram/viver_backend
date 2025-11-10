@@ -1,6 +1,8 @@
 import express from "express";
 import bcrypt from "bcrypt";
-import { User } from "../models/RegisterModel.js"
+import { User } from "../models/RegisterModel.js";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 
 const router = express.Router();
 
@@ -55,8 +57,14 @@ router.post('/login', async(req,res) => {
             if(!isPasswordValid) {
                 return res.json({msg: "Invalid Password!", status: false});
             };
+        
+        const token = jwt.sign(
+            {id: user._id, email: user.email},
+            process.env.JWT_KEY,
+            {expiresIn: '24h'}
+        );
 
-        return res.json({ status: true, user: user });
+        return res.json({ status: true, token, user });
 
     } catch(err) {
         console.error(err);
